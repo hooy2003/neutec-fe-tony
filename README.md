@@ -1,4 +1,4 @@
-# Title
+# NEUTEC-Frontend-Test
 
 ### 思路
 
@@ -25,32 +25,32 @@
 展開規則如下：
 
 ```sh
- 例如現在被選取的id = 2-1-0-2
- id = 2 (符合)
- id = 2-1 (符合)
- id = 2-1-0 (符合)
- 符合的 TreeMenu 皆展開
+例如現在被選取的id = 2-1-0-2
+id = 2 (符合)
+id = 2-1 (符合)
+id = 2-1-0 (符合)
+符合的 TreeMenu 皆展開
 ```
 
 ```sh
 for (let i = 0; i < props.id.length; i++) {
-    if (props.id[i] === navStore.state.selectId[i]) {
-      isCurrentShow = true
-    }
-    else {
-      isCurrentShow = false
-    }
+  if (props.id[i] === navStore.state.selectId[i]) {
+    isCurrentShow = true
   }
+  else {
+    isCurrentShow = false
+  }
+}
 ```
 
 菜單與下拉選單的選取都會執行下列，判定是否重複點擊，記憶點擊項目
 
 ```sh
 selectItem (id:string) {
-    state.selectId === id ? state.sameClick = !state.sameClick : state.sameClick = false
-    localStorage.setItem('selectId', id)
-    state.selectId = id
-  }
+  state.selectId === id ? state.sameClick = !state.sameClick : state.sameClick = false
+  state.selectId = id
+  localStorage.setItem('selectId', id)
+}
 ```
 
 菜單與下拉選單都是靠`subType`去跑重複項目，直到 v-if 判斷無`subType`，只是菜單多了`layer`去做樣式變化。
@@ -58,15 +58,19 @@ selectItem (id:string) {
 
 ### 延伸題目
 
-- 100 層，先不考慮畫面會長什麼樣子，
-  菜單只會渲染展開的部分，但如果展開到第 100 層，選取第 100 層的選項，則每次都會渲染前面 99 層的父組件，這裡負擔開始重了。
-  那這邊有一個方法：
+- 100 層，先不管畫面長什麼樣子。
+  我自己是做了一個 20 層的在題目要求的下面。也在 console 裡面印了 update 的事件。
 
-  watch!! 增加一個 layer 去 computed，跟當前自己的不同，就不用管，相同就去 isMenuShow，裡論會把父曾底下的全部子收起來
-  等等這邊去記憶上次跟這次的去比對，指渲染有改動的部分呢！？
+  菜單只會渲染展開的部分，但如果展開到第 20 層，選取第 20 層的選項，則每次都會 Update 前面 19 層的父組件，如下圖這裡效能就感覺重了。
 
-  但下拉選單就沒辦法了，至少得一次長出 100 個，如果真的考量到這點，可以再拿到 API 資料時候，重新做出一個單層的陣列，給下拉選單渲染
+  ![plot](https://github.com/hooy2003/neutec-fe-tony/blob/main/src/assets/img-1.png)
 
-- 每次刷新就靠`localStorage`
+  下面這文章講得很清楚。所以只要`id`一改變，組件就會急急忙忙地要去render。
+  [https://dev.to/linusborg/vue-when-a-computed-property-can-be-the-wrong-tool-195j](https://dev.to/linusborg/vue-when-a-computed-property-can-be-the-wrong-tool-195j)
+  要解決這個問題的話可以朝 eagerComputed 這方向。
+
+  而下拉選單，每次onMounted都會是全部數量，如果真的有超多個，可以朝 lazyLoad or virtual DOM 的方向。
+
+- 每次刷新記憶就靠`localStorage`
 
 **Thanks Watch!**

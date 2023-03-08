@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PropType, computed } from 'vue'
+import { PropType, computed, onUpdated } from 'vue'
 import { defaultTree } from '../types/jsonType'
 import navStore from '../stores/navStore';
 
@@ -32,8 +32,8 @@ const props = defineProps({
 
 const layerStyle = computed(() => {
   const offset = props.layer ? (props.layer - 1) * 25 : 0
-  const color = navStore.state.selectId === props.id ? props.color : '#333'
-  const border = navStore.state.selectId === props.id ? `1px ${color} solid` : `none`
+  const color = navStore.state.selecLargetId === props.id ? props.color : '#333'
+  const border = navStore.state.selecLargetId === props.id ? `1px ${color} solid` : `none`
   return { 
     transform: `translate(${offset}px)`,
     color: color,
@@ -44,20 +44,24 @@ const layerStyle = computed(() => {
 const isMenuShow = computed(() => {
   let isCurrentShow = false
   for (let i = 0; i < props.id.length; i++) {
-    if (props.id[i] === navStore.state.selectId[i]) {
+    if (props.id[i] === navStore.state.selecLargetId[i]) {
       isCurrentShow = true
     }
     else {
       isCurrentShow = false
     }
   }
-  if (navStore.state.sameClick && navStore.state.selectId === props.id) isCurrentShow = false
+  if (navStore.state.sameLargeClick && navStore.state.selecLargetId === props.id) isCurrentShow = false
   return isCurrentShow
 })
 
 const handleClick = ()=>{
-  navStore.actions.selectItem(props.id)
+  navStore.actions.selectLargeItem(props.id)
 }
+
+onUpdated(()=>{
+  console.log('[延伸問題]:20層資料被異動時，有多少組件被update')
+})
 </script>
 <template>
   <div class="tree-menu">
@@ -71,7 +75,7 @@ const handleClick = ()=>{
        {{ props.type }}
     </div>
     <div v-if="isMenuShow && props.subType.length > 0">
-      <TreeMenu 
+      <TreeLargeMenu
         v-for="(item, index) in props.subType" 
         :type="item.type"
         :color="item.color"
@@ -79,17 +83,7 @@ const handleClick = ()=>{
         :layer="props.layer+1"
         :index="index"
         :id="item.id"
-      ></TreeMenu>
+      ></TreeLargeMenu>
     </div>
   </div>
 </template>
-
-<style>
-  .tree-menu {
-    color: white;
-    width: 450px;
-    text-align: left;
-    display: flex;
-    flex-wrap: wrap;
-  }
-</style>
