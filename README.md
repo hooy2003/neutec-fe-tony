@@ -63,7 +63,7 @@ selectItem (id:string) {
 
   菜單只會渲染展開的部分，但如果展開到第 20 層，選取第 20 層的選項，則每次都會 Update 前面 19 層的父組件，如下圖這裡效能就感覺重了。
 
-  ![plot](https://github.com/hooy2003/neutec-fe-tony/blob/main/src/assets/img-1.png)
+  ![plot](https://github.com/hooy2003/neutec-fe-tony/blob/main/src/assets/img_1.png)
 
   下面這文章講得很清楚。所以只要`id`一改變，組件就會急急忙忙地要去render。
   [https://dev.to/linusborg/vue-when-a-computed-property-can-be-the-wrong-tool-195j](https://dev.to/linusborg/vue-when-a-computed-property-can-be-the-wrong-tool-195j)
