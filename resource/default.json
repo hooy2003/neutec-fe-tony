@@ -1,0 +1,114 @@
+[
+  {
+    "type":"好喝黑糖",
+    "color":"#64f",
+    "subType": [
+      {
+        "type":"黑糖鮮奶",
+        "color":"#445",
+        "subType": [
+          {
+            "type":"黑糖珍珠鮮奶",
+            "color":"#37a"
+          },
+          {
+            "type":"黑糖芋圓鮮奶",
+            "color":"#feb"
+          },
+          {
+            "type":"黑糖蒟蒻鮮奶",
+            "color":"#59c"
+          }
+        ]
+      },
+      {
+        "type":"黑糖冬瓜",
+        "color":"#29e",
+        "subType": [
+          {
+            "type":"黑糖冬瓜牛奶",
+            "color":"#ac3"
+          },
+          {
+            "type":"黑糖冬瓜珍珠",
+            "color":"#ca0"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type":"茶",
+    "color":"#6c3",
+    "subType": [
+      {
+        "type":"烏龍綠",
+        "color":"#5dc"
+      },
+      {
+        "type":"綠茶",
+        "color":"#b5f"
+      },
+      {
+        "type":"紅茶",
+        "color":"#b09"
+      },
+      {
+        "type":"青茶",
+        "color":"#887"
+      }
+    ]
+  },
+  {
+    "type":"咖啡",
+    "color":"#c81",
+    "subType": [
+      {
+        "type":"黑咖啡",
+        "color":"#e02",
+        "subType": [
+          {
+            "type":"濃縮咖啡",
+            "color":"#d20"
+          },
+          {
+            "type":"美式咖啡",
+            "color":"#1f8"
+          }
+        ]
+      },
+      {
+        "type":"牛奶咖啡",
+        "color":"#d7a",
+        "subType": [
+          {
+            "type":"拿鐵",
+            "color":"#c09",
+            "subType": [
+              {
+                "type":"黑糖拿鐵",
+                "color":"#db2"
+              },
+              {
+                "type":"榛果拿鐵",
+                "color":"#9f6"
+              },
+              {
+                "type":"香草拿鐵",
+                "color":"#b61"
+              }
+            ]
+          },
+          {
+            "type":"卡布奇諾",
+            "color":"#9ac"
+          },
+          {
+            "type":"摩卡",
+            "color":"#ce8"
+          }
+        ]
+      }
+    ]
+  }
+]
