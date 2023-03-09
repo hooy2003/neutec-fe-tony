@@ -1,7 +1,7 @@
 {
-  "name": "daynew",
+  "name": "neutec-fe-tony",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/core": "^9.13.0",
     "vue": "^3.2.45"
   },
   "devDependencies": {

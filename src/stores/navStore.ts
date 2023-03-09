@@ -9,32 +9,33 @@ const state = reactive({
   sameClick: false as boolean, // 紀錄是否點擊同一個選項
   sameLargeClick: false as boolean,
   selectId: '-1' as string, // -1 表示無選擇到任何東西
-  selecLargetId: '-1' as string
+  selecLargetId: '-1' as string,
 })
+
+const addId = (tree:defaultTree[], propsIdArray:number[]) => {
+  tree.map((item, index) => {
+    const preArr:number[] = JSON.parse(JSON.stringify(propsIdArray))
+    if (preArr.length > 0) {
+      preArr.push(index)
+      item.id = preArr.join('-')
+
+      if (item.subType) {
+        addId(item.subType, preArr)
+      }
+    } else {
+      let newArr:number[] = []
+      newArr.push(index)
+      item.id = newArr.join('-')
+
+      if (item.subType) {
+        addId(item.subType, newArr)
+      }
+    }
+  })
+}
 
 const actions = {
   callApi () {
-    const addId = function (tree:defaultTree[], propsIdArray:number[]) {
-      tree.map((item, index) => {
-        const preArr:number[] = JSON.parse(JSON.stringify(propsIdArray))
-        if (preArr.length > 0) {
-          preArr.push(index)
-          item.id = preArr.join('-')
-
-          if (item.subType) {
-            addId(item.subType, preArr)
-          }
-        } else {
-          let newArr:number[] = []
-          newArr.push(index)
-          item.id = newArr.join('-')
-
-          if (item.subType) {
-            addId(item.subType, newArr)
-          }
-        }
-      })
-    }
     addId(defaultObj, [])
     state.defaultList = defaultObj
 
@@ -42,27 +43,6 @@ const actions = {
     if(cacheId) actions.selectItem(cacheId)
   },
   callLargeApi () {
-    const addId = function (tree:defaultTree[], propsIdArray:number[]) {
-      tree.map((item, index) => {
-        const preArr:number[] = JSON.parse(JSON.stringify(propsIdArray))
-        if (preArr.length > 0) {
-          preArr.push(index)
-          item.id = preArr.join('-')
-
-          if (item.subType) {
-            addId(item.subType, preArr)
-          }
-        } else {
-          let newArr:number[] = []
-          newArr.push(index)
-          item.id = newArr.join('-')
-
-          if (item.subType) {
-            addId(item.subType, newArr)
-          }
-        }
-      })
-    }
     addId(largeObj, [])
     state.largeList = largeObj
 

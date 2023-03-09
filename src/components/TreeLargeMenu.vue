@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { PropType, computed, onUpdated } from 'vue'
+import { computedEager } from '@vueuse/core'
+import { PropType, computed, onUpdated  } from 'vue'
 import { defaultTree } from '../types/jsonType'
 import navStore from '../stores/navStore';
 
@@ -30,10 +31,14 @@ const props = defineProps({
   }
 })
 
-const layerStyle = computed(() => {
+const isSelectMe = computedEager(():boolean => {
+  return navStore.state.selecLargetId === props.id
+})
+
+const layerStyle = computed(():object => {
   const offset = props.layer ? (props.layer - 1) * 25 : 0
-  const color = navStore.state.selecLargetId === props.id ? props.color : '#333'
-  const border = navStore.state.selecLargetId === props.id ? `1px ${color} solid` : `none`
+  const color = isSelectMe.value ? props.color : '#333'
+  const border = isSelectMe.value ? `1px ${color} solid` : `none`
   return { 
     transform: `translate(${offset}px)`,
     color: color,
@@ -41,7 +46,7 @@ const layerStyle = computed(() => {
   }
 })
 
-const isMenuShow = computed(() => {
+const isMenuShow = computedEager(():boolean => {
   let isCurrentShow = false
   for (let i = 0; i < props.id.length; i++) {
     if (props.id[i] === navStore.state.selecLargetId[i]) {
@@ -55,11 +60,11 @@ const isMenuShow = computed(() => {
   return isCurrentShow
 })
 
-const handleClick = ()=>{
+const handleClick = () => {
   navStore.actions.selectLargeItem(props.id)
 }
 
-onUpdated(()=>{
+onUpdated(() => {
   console.log('[延伸問題]:20層資料被異動時，有多少組件被update')
 })
 </script>

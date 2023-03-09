@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PropType, computed } from 'vue'
+import { PropType, computed, onUpdated } from 'vue'
 import { defaultTree } from '../types/jsonType'
 import navStore from '../stores/navStore';
 
@@ -30,7 +30,7 @@ const props = defineProps({
   }
 })
 
-const layerStyle = computed(() => {
+const layerStyle = computed(():object => {
   const offset = props.layer ? (props.layer - 1) * 25 : 0
   const color = navStore.state.selectId === props.id ? props.color : '#333'
   const border = navStore.state.selectId === props.id ? `1px ${color} solid` : `none`
@@ -41,7 +41,7 @@ const layerStyle = computed(() => {
   }
 })
 
-const isMenuShow = computed(() => {
+const isMenuShow = computed(():boolean => {
   let isCurrentShow = false
   for (let i = 0; i < props.id.length; i++) {
     if (props.id[i] === navStore.state.selectId[i]) {
@@ -55,9 +55,13 @@ const isMenuShow = computed(() => {
   return isCurrentShow
 })
 
-const handleClick = ()=>{
+const handleClick = () => {
   navStore.actions.selectItem(props.id)
 }
+
+onUpdated(() => {
+  console.log('[延伸問題]:範例資料被異動時，有多少組件被update')
+})
 </script>
 <template>
   <div class="tree-menu">

@@ -5,7 +5,7 @@ import TreeLargeMenu from './TreeLargeMenu.vue'
 import TreeOption from './TreeOption.vue'
 import navStore from '../stores/navStore'
 
-onMounted(()=>{
+onMounted(() => {
   navStore.actions.callApi()
   navStore.actions.callLargeApi()
 })
@@ -24,10 +24,8 @@ const selectLargeValue = computed({
 </script>
 
 <template>
-  <h2 style="color: #213547;">
-    Nav
-  </h2>
-  <h3 style="color: #213547;">範例資料格式</h3>
+  <h2 style="text-align:center;">Nav</h2>
+  <h3>範例資料格式</h3>
   <div>
     <TreeMenu 
       v-for="(item, index) in drinkList"
@@ -39,7 +37,7 @@ const selectLargeValue = computed({
       :id="item.id"
     ></TreeMenu>
   </div>
-  <div style="text-align:left;padding: 10px 0;">
+  <div class="select-wrap">
     <select
       v-model="selectValue"
     >
@@ -53,7 +51,7 @@ const selectLargeValue = computed({
     </select>
   </div>
   <hr>
-  <h3 style="color: #213547;">20層資料格式</h3>
+  <h3>20層資料格式</h3>
   <div>
     <TreeLargeMenu 
       v-for="(item, index) in drinkLargeList"
@@ -65,7 +63,7 @@ const selectLargeValue = computed({
       :id="item.id"
     ></TreeLargeMenu>
   </div>
-  <div style="text-align:left;padding: 10px 0;">
+  <div class="select-wrap">
     <select
       v-model="selectLargeValue"
     >
@@ -81,10 +79,52 @@ const selectLargeValue = computed({
 </template>
 
 <style>
+  h2, h3 {
+    color: #213547;
+  }
+  .select-wrap {
+    text-align:left;
+    display: inline-block;
+    position: relative;
+    margin: 20px 0 0 0;
+  }
   select {
     width:200px;
     font-size:16px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px #bababa solid;
+    appearance:none;
+    outline: none;
     color: #fff;
     background-color: #000;
   }
+  .select-wrap::before {
+    content:"";
+    position: absolute;
+    right: 18px;
+    top: 10px;    
+    z-index: 1;
+    text-align: center;
+    width: 1px;
+    height: 8px;
+    transform: rotateZ(-45deg);
+    background-color: #fff;
+    pointer-events: none;
+    box-sizing: border-box;   
+  }  
+  .select-wrap:after {
+    content:"";
+    position: absolute;
+    right: 12px;
+    top: 10px;    
+    z-index: 1;
+    text-align: center;
+    width: 1px;
+    height: 8px;
+    transform: rotateZ(45deg);
+    background-color: #fff;
+    pointer-events: none;
+    box-sizing: border-box;   
+  }   
 </style>
