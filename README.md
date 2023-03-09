@@ -67,14 +67,14 @@ selectItem (id:string) {
 
   ![plot](https://github.com/hooy2003/neutec-fe-tony/blob/main/src/assets/img_1.png)
 
-  下面這文章講得很清楚，值得一看。所以我們知道了，只要`id`一改變，組件就會急急忙忙地要去render。
+  下面這連結的文章講得很清楚，值得一看。所以我們知道了，只要`id`一改變，組件就會急急忙忙地要去render。
   [https://dev.to/linusborg/vue-when-a-computed-property-can-be-the-wrong-tool-195j](https://dev.to/linusborg/vue-when-a-computed-property-can-be-the-wrong-tool-195j)
   
   所以我在 20 層的菜單用了 vueuse 的 computedEager 來解決這件事情。如下圖，可以透過操作上下兩個菜單，並觀察 console 的 log 變化來觀察倒是有明顯差異的。(上面的菜單沒有用 computedEager，而下面的有使用)
 
   ![plot](https://github.com/hooy2003/neutec-fe-tony/blob/main/src/assets/img_2.png)
 
-  但實際開發需不需要用到 computedEager 還是需要討論的，因為我們又多增加了一個變數去紀錄是否被改變，會不會影響維護成本。
+  但實際開發需不需要用到 computedEager 還是需要討論的，因為我們又多增加了一個變數去紀錄是否被改變，會不會因此造成額外的維護成本。
 
   ```sh
   const isSelectMe = computedEager(():boolean => {
@@ -82,9 +82,8 @@ selectItem (id:string) {
   })
   ```
 
-  下拉選單：每次onMounted都會是全部數量，如果真的有超多個，可以朝 lazyLoad or virtual DOM 的方向。可以選擇如下的套件輔助。
-  [https://github.com/Akryum/vue-virtual-scroller]
-  (https://github.com/Akryum/vue-virtual-scroller)
+  下拉選單：每次onMounted都會是全部數量，如果真的有超多個，可以朝 lazyLoad or virtual DOM 的方向。可以選擇如下連結的套件輔助。
+  [https://github.com/Akryum/vue-virtual-scroller](https://github.com/Akryum/vue-virtual-scroller)
 
 - 每次刷新記憶就靠`localStorage`。
 
